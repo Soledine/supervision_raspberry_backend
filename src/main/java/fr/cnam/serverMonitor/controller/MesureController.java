@@ -23,4 +23,11 @@ public class MesureController {
     public List<CpuMesure> getMesures(){
         return mesureCpuRepository.findAll();
     }
+
+    @GetMapping("/lastMesure")
+    public CpuMesure getLastMesure(){
+        CpuMesure mesure = mesureCpuRepository.findFirstByOrderByIdDesc();
+        System.out.println("envoi de "+mesure);
+        return mesure;
+    }
 }

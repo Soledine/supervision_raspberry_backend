@@ -27,4 +27,9 @@ public class CpuMesure{
     public void setCpuLoad(BigDecimal cpuLoad) {
         this.cpuLoad = cpuLoad;
     }
+
+    @Override
+    public String toString() {
+        return "CpuMesure{" + "id=" + id + ", cpuLoad=" + cpuLoad + '}';
+    }
 }
