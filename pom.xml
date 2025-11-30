@@ -11,7 +11,7 @@
 	<groupId>fr.cnam</groupId>
 	<artifactId>serverMonitor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>serverMonitor</name>
 	<description>projet NFA083</description>
 	<url/>
