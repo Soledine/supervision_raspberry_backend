@@ -1,4 +1,4 @@
-package fr.cnam.serverMonitor;
+package fr.cnam.serverMonitor.service;
 
 
 import fr.cnam.serverMonitor.entite.CpuMesure;
@@ -10,6 +10,7 @@ import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -32,6 +33,7 @@ public class MesureService {
         TimeUnit.SECONDS.sleep(1);
         double cpuLoad = processor.getSystemCpuLoadBetweenTicks(prevTicks) * 100;
         mesure.setCpuLoad(new BigDecimal(cpuLoad));
+        mesure.setTime(LocalDateTime.now());
         mesureCpuRepository.save(mesure);
         System.out.println("nouvelle mesure en bdd : "+mesure);
     }

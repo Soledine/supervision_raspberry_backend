@@ -2,6 +2,7 @@ package fr.cnam.serverMonitor.controller;
 
 
 import fr.cnam.serverMonitor.entite.CpuMesure;
+import fr.cnam.serverMonitor.entite.DTO.CpuMesureDto;
 import fr.cnam.serverMonitor.repository.MesureCpuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,14 +21,14 @@ public class MesureController {
     private MesureCpuRepository mesureCpuRepository;
 
     @GetMapping("/mesuresCpu")
-    public List<CpuMesure> getMesures(){
-        return mesureCpuRepository.findAll();
+    public List<CpuMesureDto> getMesures(){
+        return mesureCpuRepository.findAll().stream().map(CpuMesureDto::new).toList();
     }
 
     @GetMapping("/lastMesure")
-    public CpuMesure getLastMesure(){
+    public CpuMesureDto getLastMesure(){
         CpuMesure mesure = mesureCpuRepository.findFirstByOrderByIdDesc();
         System.out.println("envoi de "+mesure);
-        return mesure;
+        return new CpuMesureDto(mesure);
     }
 }
