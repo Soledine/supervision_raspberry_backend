@@ -3,13 +3,16 @@ package fr.cnam.serverMonitor.service;
 
 import fr.cnam.serverMonitor.entite.CpuMesure;
 import fr.cnam.serverMonitor.entite.MemoryMesure;
+import fr.cnam.serverMonitor.entite.NetworkInterfaceMesure;
 import fr.cnam.serverMonitor.repository.MesureCpuRepository;
 import fr.cnam.serverMonitor.repository.MesureMemoryRepository;
+import fr.cnam.serverMonitor.repository.MesureNetworkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
+import oshi.hardware.HardwareAbstractionLayer;
 import oshi.hardware.NetworkIF;
 
 import java.math.BigDecimal;
@@ -27,9 +30,13 @@ public class MesureService {
     @Autowired
     final private MesureMemoryRepository mesureMemoryRepository;
 
-    public MesureService(MesureCpuRepository mesureCpuRepository,MesureMemoryRepository mesureMemoryRepository) {
+    @Autowired
+    final private MesureNetworkRepository mesureNetworkRepository;
+
+    public MesureService(MesureCpuRepository mesureCpuRepository,MesureMemoryRepository mesureMemoryRepository,MesureNetworkRepository mesureNetworkRepository) {
         this.mesureCpuRepository = mesureCpuRepository;
         this.mesureMemoryRepository=mesureMemoryRepository;
+        this.mesureNetworkRepository=mesureNetworkRepository;
     }
 
     @Scheduled(fixedRate = 3000)
@@ -59,5 +66,22 @@ public class MesureService {
         mesureMemoire.setTime(LocalDateTime.now());
         mesureMemoryRepository.save(mesureMemoire);
         System.out.println("nouvelle mesure memoire en bdd : "+mesureMemoire);
+
+        List<NetworkIF> networkInterfaces =si.getHardware().getNetworkIFs();
+
+
+        try {
+        NetworkInterfaceMesure mesureReseau = networkInterfaces.stream().filter(iF -> iF.getBytesRecv()!=0 && iF.getBytesSent()!=0)
+                .map(iF -> new NetworkInterfaceMesure(iF.getName(),new BigDecimal(iF.getBytesRecv()),new BigDecimal(iF.getBytesSent())))
+                .distinct().toList().get(0);
+
+        System.out.printf("Network Interface: %s - Received: %s, Sent: %s%n",mesureReseau.getName(), mesureReseau.getBytesReceived().toString(), mesureReseau.getBytesSent().toString());
+
+        mesureNetworkRepository.save(mesureReseau);
+
+        }
+
+        catch(IndexOutOfBoundsException e) {System.out.printf("aucune interface reseau active");}
+
     }
 }
