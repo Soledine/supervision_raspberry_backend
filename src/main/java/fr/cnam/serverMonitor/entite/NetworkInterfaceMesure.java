@@ -23,6 +23,9 @@ public class NetworkInterfaceMesure {
     @Column(name="bytes_sent",nullable = false)
     private BigDecimal bytesSent;
 
+    @Column(name="time",nullable = false)
+    private LocalDateTime time;
+
     public long getId() {
         return id;
     }
@@ -55,6 +58,14 @@ public class NetworkInterfaceMesure {
         this.name = name;
     }
 
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass())
@@ -63,15 +74,12 @@ public class NetworkInterfaceMesure {
         return Objects.equals(bytesReceived, that.bytesReceived) && Objects.equals(bytesSent, that.bytesSent);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(bytesReceived, bytesSent);
-    }
 
-    public NetworkInterfaceMesure(String name, BigDecimal bytesReceived, BigDecimal bytesSent) {
+    public NetworkInterfaceMesure(String name, BigDecimal bytesReceived, BigDecimal bytesSent,LocalDateTime time) {
         this.name = name;
         this.bytesReceived = bytesReceived;
         this.bytesSent = bytesSent;
+        this.time=time;
     }
 
     public NetworkInterfaceMesure() {

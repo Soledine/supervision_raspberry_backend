@@ -18,6 +18,7 @@ CREATE TABLE mesure_network (
 	name varchar not null,
 	bytes_received decimal not null,
 	bytes_sent decimal not null,
+	time timestamp not null
 );
 
 

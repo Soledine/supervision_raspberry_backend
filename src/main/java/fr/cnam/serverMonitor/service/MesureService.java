@@ -72,7 +72,7 @@ public class MesureService {
 
         try {
         NetworkInterfaceMesure mesureReseau = networkInterfaces.stream().filter(iF -> iF.getBytesRecv()!=0 && iF.getBytesSent()!=0)
-                .map(iF -> new NetworkInterfaceMesure(iF.getName(),new BigDecimal(iF.getBytesRecv()),new BigDecimal(iF.getBytesSent())))
+                .map(iF -> new NetworkInterfaceMesure(iF.getName(),new BigDecimal(iF.getBytesRecv()),new BigDecimal(iF.getBytesSent()),LocalDateTime.now()))
                 .distinct().toList().get(0);
 
         System.out.printf("Network Interface: %s - Received: %s, Sent: %s%n",mesureReseau.getName(), mesureReseau.getBytesReceived().toString(), mesureReseau.getBytesSent().toString());
