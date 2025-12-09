@@ -4,13 +4,12 @@ import fr.cnam.serverMonitor.Utils;
 import fr.cnam.serverMonitor.entite.NetworkInterfaceMesure;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
-public record NetworkInterfaceMesureDto(String name,BigDecimal megaBytesReceived, BigDecimal megaBytesSent,String time) {
+public record NetworkInterfaceMesureDto(String name,BigDecimal bytesReceived, BigDecimal bytesSent,String time) {
 
 
     public NetworkInterfaceMesureDto(NetworkInterfaceMesure ifMesure){
-        this(ifMesure.getName(),ifMesure.getBytesReceived().divide( new BigDecimal(1048576),0, RoundingMode.CEILING),ifMesure.getBytesSent().divide(new BigDecimal(1048576),0, RoundingMode.CEILING),ifMesure.getTime().format(Utils.dateFormatter()));
+        this(ifMesure.getName(),ifMesure.getBytesReceived(),ifMesure.getBytesSent(),ifMesure.getTime().format(Utils.dateFormatter()));
     }
 
 
