@@ -49,6 +49,11 @@ public class MesureController {
         return mesureMemoireRepository.findAll().stream().map(MemoryMesureDto::new).toList();
     }
 
+    @GetMapping("/lastMesureMemoire")
+    public MemoryMesureDto getLastMesureMemoire(){
+        return new MemoryMesureDto(mesureMemoireRepository.findFirstByOrderByIdDesc());
+    }
+
     @GetMapping("/lastMesureNetwork")
     public NetworkInterfaceMesureDto getlastMesureReseau(){
         NetworkInterfaceMesure mesure = mesureNetworkRepository.findFirstByOrderByIdDesc();
