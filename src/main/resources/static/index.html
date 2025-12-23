@@ -1,48 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=<p>Un premier essai<>, initial-scale=1.0">
-    <title>SPA</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-</head>
-<body>
-    
-    
-    <div id="idApp">
-        <header><h1>Supervision du raspberry</h1></header>
-        <composantcpu></composantcpu>
-
-    </div>
-    <script>
-        const composantcpu = {
-            template : '<p>charge Cpu: {{cpuLoad}}</p>',
-            data(){
-                return {
-                    cpuLoad:10
-                }
-            },
-
-            created(){
-                
-                axios.get("https://randomuser.me/api/?results=3").then((reponse) => {
-                    this.cpuLoad=12;
-                    console.log(this.cpuLoad);
-                });
-                
-                //this.cpuLoad=12;
-            }
-        }       
-        const app = Vue.createApp({
-            components : {
-                'composantcpu':composantcpu
-            },
-            methods : {
-            }
-        });
-        let vm = app.mount('#idApp');
-    </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>supervision_raspberry_front</title>
+    <script type="module" crossorigin src="/assets/index-D8vQ-As6.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CYN49ZAY.css">
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
 </html>
