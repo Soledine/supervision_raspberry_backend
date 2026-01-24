@@ -1,5 +1,6 @@
 drop table if exists mesure_cpu ;
 drop table if exists mesure_memoire ;
+drop table if exists mesure_network ;
 
 CREATE TABLE mesure_cpu (
 	id serial primary key,

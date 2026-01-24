@@ -15,9 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
-import oshi.hardware.HardwareAbstractionLayer;
 import oshi.hardware.NetworkIF;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -58,11 +56,9 @@ public class MesureService {
     }
 
     @Scheduled(fixedRate = 3000)
-    public void collectAndSaveMetrics() throws InterruptedException{
-
+    public void collecteMesure() throws InterruptedException{
 
         SystemInfo si = new SystemInfo();
-
 
         // donnees cpu
         CpuMesure mesureCpu=new CpuMesure();

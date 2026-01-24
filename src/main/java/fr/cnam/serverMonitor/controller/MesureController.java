@@ -6,7 +6,6 @@ import fr.cnam.serverMonitor.entite.DTO.CpuMesureDto;
 import fr.cnam.serverMonitor.entite.DTO.FilestoreDTO;
 import fr.cnam.serverMonitor.entite.DTO.MemoryMesureDto;
 import fr.cnam.serverMonitor.entite.DTO.NetworkInterfaceMesureDto;
-import fr.cnam.serverMonitor.entite.MemoryMesure;
 import fr.cnam.serverMonitor.entite.NetworkInterfaceMesure;
 import fr.cnam.serverMonitor.repository.MesureCpuRepository;
 import fr.cnam.serverMonitor.repository.MesureMemoryRepository;
@@ -22,7 +21,6 @@ import java.nio.file.FileSystems;
 import java.util.List;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api")
 public class MesureController {
 
@@ -46,7 +44,6 @@ public class MesureController {
     @GetMapping("/lastMesureCpu")
     public CpuMesureDto getLastMesureCpu(){
         CpuMesure mesure = mesureCpuRepository.findFirstByOrderByIdDesc();
-        System.out.println("envoi de "+mesure);
         return new CpuMesureDto(mesure);
     }
 
